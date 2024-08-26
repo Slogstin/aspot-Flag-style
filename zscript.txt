@@ -1,0 +1,55 @@
+
+//
+// This file is part of ASPOT.
+// See README and LICENSE for details.
+//
+
+// -------------------------------------------------------------------------- //
+
+class ASpotFlagStyle : ASpotBasicStyle {
+
+  override string GetStyleName() const {
+    return "flag";
+  }
+
+  override string GetTexName(ASpotType type) const {
+    switch (type) {
+      case ASPOT_MONSTER: { return "FLAGATTK"; }
+      case ASPOT_PICKUP:  { return "FLAGITEM"; }
+      case ASPOT_FRIEND:  { return "FLAGFRND"; }
+      default:            { return "FLAGSPOT"; }
+    }
+  }
+
+  override name GetSpotClass() const {
+    return 'ASpotFlagPuff';
+  }
+
+  override vector2 GetDrawMargin() const {
+    return (80, 40);
+  }
+
+}
+
+// -------------------------------------------------------------------------- //
+
+class ASpotFlagPuff : ASpotBasicPuff {
+
+  States {
+
+    Spawn:
+      TNT1 A 35 nodelay {
+        A_StartSound(
+          "arookas/spot/ring", slot: CHAN_AUTO,
+          flags: (CHANF_NOPAUSE | CHANF_UI | CHANF_OVERLAP),
+          volume: 0.7, attenuation: ATTN_NONE
+        );
+      }
+      TNT1 AAAAAA 35;
+      Stop;
+
+  }
+
+}
+
+// -------------------------------------------------------------------------- //
